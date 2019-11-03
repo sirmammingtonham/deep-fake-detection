@@ -28,7 +28,7 @@ OUTPUT_PATH = '../classification/data_dir/results'
 
 cuda = False
 
-base_weights_path = 'classification/weights/face_detection/xception'
+base_weights_path = '../classification/weights/face_detection/xception'
 model_full_path = f'{base_weights_path}/all_raw.p'
 model_77_path = f'{base_weights_path}/all_c23.p'
 model_60_path = f'{base_weights_path}/all_c40.p'
