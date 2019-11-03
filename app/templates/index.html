@@ -9,13 +9,13 @@
 		<title>Snooopy.xyz</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
-				<img width="300" src="images/logo@4x.png">
+				<img width="300" src="{{ url_for('static', filename='logo@4x.png') }}">
 				<p> <b>Enter your URL to find out if it has a fake or not!</b></p>
 			</header>
 		<!-- Signup Form -->
@@ -33,7 +33,6 @@
 
 
 		<!-- Scripts -->
-			<script src="assets/js/main.js"></script>
-
+			<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 	</body>
 </html>
