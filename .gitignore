@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# dataset
+faceforensics_download_v4.py
+detecting-fake-text-master/
+FaceForensics-master/
+faceforensics++_models/
+faceforensics++_models.zip
