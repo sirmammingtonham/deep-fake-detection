@@ -5,6 +5,7 @@ sys.path.append('..')
 
 from app import app
 from classification.detect_from_video import test_full_image_network
+from classification.detect_from_image import detect_from_image
 from classification.network import models
 import torch
 # from app.download_yt import download_video
