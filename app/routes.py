@@ -35,7 +35,7 @@ OUTPUT_PATH = '../classification/data_dir/results'
 # model_full = torch.load(model_full_path, map_location=lambda storage, loc: storage)
 # model_77 = torch.load(model_77_path, map_location=lambda storage, loc: storage)
 # model_60 = torch.load(model_60_path, map_location=lambda storage, loc: storage)
-# gpt = LM()
+gpt = LM()
 
 # dbio = DatabaseIO()
 
@@ -54,50 +54,52 @@ def index():
 # POST IMAGE 
 @app.route('/snooop', methods=['GET', 'POST'])
 def check_if_fake():
+    try:
+        if request.method =='POST':
+            url = request.form['get_link']
 
-    if request.method =='POST':
-        url = request.form['get_link']
+            scraped = get_elements(url)
+            if scraped[0]:
+                raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
+                result_percentage = get_generated_analysis(raw_text, gpt)
 
-        scraped = get_elements(url)
-        if scraped[0]:
-            raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
-            result_percentage = get_generated_analysis(raw_text, gpt)
+            return render_template('results.html')
 
-        return render_template('results.html')
-
-        # if scraped[1]:
+            # if scraped[1]:
 
 
-        # if scraped[2]:
+            # if scraped[2]:
 
-        #     predicted_class = compression_detection.classify_video(filepath)
+            #     predicted_class = compression_detection.classify_video(filepath)
 
-        #     if predicted_class == '0.6':
-        #         fake_prediction = test_full_image_network(filepath, model=model_60, output_path=OUTPUT_PATH,
-        #                                 start_frame=0, end_frame=None, cuda=cuda)
-        #     elif predicted_class == '0.77':
-        #         fake_prediction = test_full_image_network(filepath, model=model_77, output_path=OUTPUT_PATH,
-        #                                 start_frame=0, end_frame=None, cuda=cuda)
-        #     elif predicted_class == 'original':
-        #         fake_prediction = test_full_image_network(filepath, model=model_full, output_path=OUTPUT_PATH,
-        #                                 start_frame=0, end_frame=None, cuda=cuda)
+            #     if predicted_class == '0.6':
+            #         fake_prediction = test_full_image_network(filepath, model=model_60, output_path=OUTPUT_PATH,
+            #                                 start_frame=0, end_frame=None, cuda=cuda)
+            #     elif predicted_class == '0.77':
+            #         fake_prediction = test_full_image_network(filepath, model=model_77, output_path=OUTPUT_PATH,
+            #                                 start_frame=0, end_frame=None, cuda=cuda)
+            #     elif predicted_class == 'original':
+            #         fake_prediction = test_full_image_network(filepath, model=model_full, output_path=OUTPUT_PATH,
+            #                                 start_frame=0, end_frame=None, cuda=cuda)
+            #     else:
+            #         fake_prediction = None
+
+            # print(f'fake_prediction: {fake_prediction}')
+            # if fake_prediction is not None:
+            #     history = history.append({'hash': hash, 'link': youtube_url, 'filename': upload_fname,
+            #                               'fake': fake_prediction}, ignore_index=True)
+            #     dbio.write_history(history)
+
+            # os.remove(filepath)
+
+        #     if fake_prediction == 1:
+        #         return render_template('fake.hmtl')
+        #     elif fake_prediction == 0:
+        #         return render_template('real.html')
         #     else:
-        #         fake_prediction = None
+        #         return render_template('error.html')
 
-        # print(f'fake_prediction: {fake_prediction}')
-        # if fake_prediction is not None:
-        #     history = history.append({'hash': hash, 'link': youtube_url, 'filename': upload_fname,
-        #                               'fake': fake_prediction}, ignore_index=True)
-        #     dbio.write_history(history)
-
-        # os.remove(filepath)
-
-    #     if fake_prediction == 1:
-    #         return render_template('fake.hmtl')
-    #     elif fake_prediction == 0:
-    #         return render_template('real.html')
-    #     else:
-    #         return render_template('error.html')
-
-    # else:
-    #     return render_template('error.html')
+        # else:
+        #     return render_template('error.html')
+    except:
+        return render_template('error.html')
