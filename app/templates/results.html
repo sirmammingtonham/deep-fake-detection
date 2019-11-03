@@ -34,13 +34,23 @@
 							<div class="inner">
 								<h1>Image Analysis:</h1>
 								
-								<h3>Out of the {{num_images}} images we scanned, we found {{fakes|length}} possible deep fakes. Below is a list of ai generated images we found:</h3>
+								<h3>Out of the {{num_images}} image(s) we scanned, we found {{fakes|length}} possible deep fakes.</h3>
+								{% if fakes|length != 0 %}
+								<h3>Below is a list of ai generated images we found:</h3>
 								<ul>
 									{% for item in fakes %}
 									<li>{{item[1]}}</li>
 									{% endfor %}
 								</ul>
+								{% endif %}
+							</div>
+						</div>
+						{% else %}
+						<div class="content">
+							<div class="inner">
+								<h1>Image Analysis:</h1>
 								
+								<h3>We didn't find any candidate images to scan.</h3>
 							</div>
 						</div>
 						{% endif %}
