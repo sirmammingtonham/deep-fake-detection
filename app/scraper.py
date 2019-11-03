@@ -7,10 +7,7 @@ import requests
 import json
 import os
 
-def main():
-	page_link = 'https://www.theatlantic.com/politics/archive/2019/10/impeachment-house-trump/601213/'
-	# page_link = 'https://www.engadget.com/2019/10/11/deepfake-celebrity-impresonations/'
-
+def get_elements(page_link):
 	# implement try catch
 
 	page_response = requests.get(page_link, timeout=5)
@@ -80,13 +77,4 @@ def main():
 
 	print (len(clean_images), "images found.")
 
-	out = [clean_paragraphs, clean_images]
-
-	with open('output.json', 'w') as outfile:
-		json.dump(out, outfile)
-
-	if os.path.exists("temp.jpg"):
-  		os.remove("temp.jpg")
-
-if __name__ == '__main__':
-	main()
+	return [clean_paragraphs, clean_images]
