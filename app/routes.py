@@ -52,25 +52,25 @@ def check_if_fake():
     try:
         if request.method =='POST':
             url = request.form['get_link']
+            text_preds = []
             image_preds = []
 
             scraped = get_elements(url)
             if scraped[0]:
                 raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
                 result_percentage = get_generated_analysis(raw_text, gpt)
+                if result_percentage >= 0.7:
+                    text_preds.append('high')
+                elif result_percentage >= 0.4:
+                    text_preds.append('medium')
+                else
+                    text_preds.append('low')
+                text_preds.append(result_percentage)
 
             if scraped[1]:
                 print('found images, running detection')
                 for image in scraped[1]:
-                    # predicted_class = compression_detection.classify_video(image)
-                    # if predicted_class == '0.6':
-                    #     image_preds.append(detect_from_image(image, model_path=model_60, cuda=cuda))
-                    # elif predicted_class == '0.77':
-                    #     image_preds.append(detect_from_image(image, model_path=model_77, cuda=cuda))
-                    # elif predicted_class == 'original':
-                    image_preds.append([detect_from_image(image, model_full, cuda=cuda), image])
-                    # else:
-                    #     image_preds.append(None)
+                    image_preds.append((detect_from_image(image, model_full, cuda=cuda), image))
 
 
             if scraped[2]:
@@ -117,7 +117,7 @@ def check_if_fake():
 <<<<<<< HEAD
         return render_template('results.html', posOfAI = result_percentage)
 =======
-        return render_template('results.html', posOfAI = result_percentage, imageDetection = image_preds)
+        return render_template('results.html', posOfAI = text_preds, imageDetection = image_preds)
 >>>>>>> 81b9a064cc54f2d9655d0e7e19f87f3b26e97484
 
     except:
