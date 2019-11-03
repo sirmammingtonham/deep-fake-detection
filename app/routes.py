@@ -75,7 +75,7 @@ def check_if_fake():
                 for image in scraped[1]:
                     image_preds.append((detect_from_image(image, model_full, cuda=cuda), image))
                 print(image_preds)
-                fakes = [i for i in image_preds if i[0] == 1]
+                fakes = [i for i in image_preds if i[0] == 0]
 
 
             if scraped[2]:
