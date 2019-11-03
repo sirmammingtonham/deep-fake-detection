@@ -174,7 +174,7 @@ class LM(AbstractLanguageChecker):
 
         return token
 
-def get_generated_analysis(raw_text, lm, topk=5, threshold=0.1):
+def get_generated_analysis(raw_text, lm, topk=5, threshold=0.0007):
     payload = lm.check_probabilities(raw_text, topk)
-    faked = sum(i[1] > threshold for i in payload['real_topk'])
+    faked = sum(i[1] < threshold for i in payload['real_topk'])
     return faked/len(payload['real_topk'])

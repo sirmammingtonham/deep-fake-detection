@@ -59,12 +59,14 @@ def check_if_fake():
             if scraped[0]:
                 raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
                 result_percentage = get_generated_analysis(raw_text, gpt)
-                if result_percentage >= 0.7:
-                    text_preds.append('high')
-                elif result_percentage >= 0.4:
+                if result_percentage >= 0.3:
+                    text_preds.append('very low')
+                if result_percentage >= 0.1:
+                    text_preds.append('low')
+                elif result_percentage >= 0.07:
                     text_preds.append('medium')
                 else:
-                    text_preds.append('low')
+                    text_preds.append('high')
                 text_preds.append(result_percentage)
 
             if scraped[1]:
