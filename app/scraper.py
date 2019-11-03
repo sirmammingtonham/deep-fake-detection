@@ -80,4 +80,7 @@ def get_elements(page_link):
 
 	print (len(clean_images), "images found.")
 
+	if os.path.exists("temp.jpg"):
+  		os.remove("temp.jpg")
+
 	return [clean_paragraphs, clean_images, None]
