@@ -45,7 +45,7 @@ def index():
     return render_template('index.html')
 
 
-# POST IMAGE 
+# POST IMAGE
 @app.route('/snooop', methods=['GET', 'POST'])
 def check_if_fake():
     try:
@@ -61,15 +61,15 @@ def check_if_fake():
             if scraped[1]:
                 print('found images, running detection')
                 for image in scraped[1]:
-                    predicted_class = compression_detection.classify_video(image)
-                    if predicted_class == '0.6':
-                        image_preds.append(detect_from_image(image, model_path=model_60, cuda=cuda))
-                    elif predicted_class == '0.77':
-                        image_preds.append(detect_from_image(image, model_path=model_77, cuda=cuda))
-                    elif predicted_class == 'original':
-                        image_preds.append(detect_from_image(image, model_path=model_full, cuda=cuda))
-                    else:
-                        image_preds.append(None)
+                    # predicted_class = compression_detection.classify_video(image)
+                    # if predicted_class == '0.6':
+                    #     image_preds.append(detect_from_image(image, model_path=model_60, cuda=cuda))
+                    # elif predicted_class == '0.77':
+                    #     image_preds.append(detect_from_image(image, model_path=model_77, cuda=cuda))
+                    # elif predicted_class == 'original':
+                    image_preds.append(detect_from_image(image, model_path=model_full, cuda=cuda))
+                    # else:
+                    #     image_preds.append(None)
 
 
             if scraped[2]:
