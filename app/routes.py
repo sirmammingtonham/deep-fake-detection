@@ -105,13 +105,16 @@ def check_if_fake():
                     print(a)
                     # return render_template('real.html')
                 else:
-                    return render_template('error.html')
+                    flash('ERROR! Something went wrong. Please try again.')
+                    return redirect(url_for('index'))
                     # return render_template('error.html')
 
         else:
-            return render_template('error.html')
+            flash('ERROR! Something went wrong. Please try again.')
+            return redirect(url_for('index'))
 
         return render_template('results.html')
 
     except:
-        return render_template('error.html')
+        flash('ERROR! Something went wrong. Please try again.')
+        return redirect(url_for('index'))
