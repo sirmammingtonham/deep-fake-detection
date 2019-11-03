@@ -54,7 +54,7 @@ def get_elements(page_link):
 
 			# Get user supplied values
 			imagePath = "temp.jpg"
-			cascPath = "haarcascade_frontalface_default.xml"
+			cascPath = "/home/ethanj217/deep-fake-detection/app/haarcascade_frontalface_default.xml"
 
 			# Create the haar cascade
 			faceCascade = cv2.CascadeClassifier(cascPath)

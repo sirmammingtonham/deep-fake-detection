@@ -5,6 +5,7 @@ import cv2
 import dlib
 import torch
 import torch.nn as nn
+import urllib
 from PIL import Image as pil_image
 from tqdm import tqdm
 
@@ -88,12 +89,17 @@ def predict_with_model(image, model, post_function=nn.Softmax(dim=1),
 
     return int(prediction), output
 
-def detect_from_image(image_url, model_path, cuda=False):
+def detect_from_image(url, model, cuda=False):
     face_detector = dlib.get_frontal_face_detector()
-    model, *_ = model_selection(modelname='xception', num_out_classes=2)
-    model = torch.load(model_path)
     if cuda:
         model = model.cuda()
+
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+    urllib.request.install_opener(opener)
+    urllib.request.urlretrieve(url, "temp.jpg")
+    # Read the image
+    image = cv2.imread("temp.jpg")
 
     font_face = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
