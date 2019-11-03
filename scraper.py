@@ -5,9 +5,10 @@ import urllib
 import re
 import requests
 import json
+import os
 
 def main():
-	page_link = 'https://www.wired.com/story/ai-deepfakes-cant-save-us-duped/'
+	page_link = 'https://www.theatlantic.com/politics/archive/2019/10/impeachment-house-trump/601213/'
 	# page_link = 'https://www.engadget.com/2019/10/11/deepfake-celebrity-impresonations/'
 
 	# implement try catch
@@ -19,7 +20,13 @@ def main():
 	paragraphs = page_content.find_all("p")
 	clean_paragraphs = []
 
-	images = page_content.find('figure').find_all('img', src=True)
+	if page_content.find('figure') != None:
+		images = page_content.find('figure').find_all('img', src=True)
+		figure = True
+	else:
+		images = page_content.find_all('img', src=True)
+		figure = False
+
 	clean_images = []
 
 	for pg in paragraphs:
@@ -29,42 +36,47 @@ def main():
 	print (len(clean_paragraphs), "paragraphs found.")
 
 	for im in images:
+		viable = True
+
 		url = im['src']
+		url = url.strip('//')
+		if 'http://' not in url and 'https://' not in url:
+			url = 'http://' + url
 		url.replace('&amp;', '&')
+
 		print(url)
 
-		urllib.request.urlretrieve(url, "temp.jpg")
+		if not figure and not url.endswith(('.jpg', '.png', '.jpeg', '.gif')):
+			viable = False 
 
-		# Get user supplied values
-		imagePath = "temp.jpg"
-		cascPath = "haarcascade_frontalface_default.xml"
+		if viable:
+			urllib.request.urlretrieve(url, "temp.jpg")
 
-		# Create the haar cascade
-		faceCascade = cv2.CascadeClassifier(cascPath)
+			# Get user supplied values
+			imagePath = "temp.jpg"
+			cascPath = "haarcascade_frontalface_default.xml"
 
-		# Read the image
-		image = cv2.imread(imagePath)
-		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+			# Create the haar cascade
+			faceCascade = cv2.CascadeClassifier(cascPath)
 
-		# Detect faces in the image
-		faces = faceCascade.detectMultiScale(
-		    gray,
-		    scaleFactor=1.1,
-		    minNeighbors=5,
-		    minSize=(30, 30)
-		)
+			# Read the image
+			image = cv2.imread(imagePath)
+			gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-		print("Found {0} faces!".format(len(faces)))
+			# Detect faces in the image
+			faces = faceCascade.detectMultiScale(
+			    gray,
+			    scaleFactor=1.1,
+			    minNeighbors=5,
+			    minSize=(30, 30)
+			)
 
-		# Draw a rectangle around the faces
-		# for (x, y, w, h) in faces:
-		#     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			print("Found {0} faces!".format(len(faces)))
 
-		# cv2.imshow("Faces found", image)
-		# cv2.waitKey(0)
-
-		if len(faces) > 0:
-			clean_images.append(url)
+			if len(faces) > 0:
+				clean_images.append(url)
+		else:
+			print("not viable")
 
 	print (len(clean_images), "images found.")
 
@@ -72,6 +84,9 @@ def main():
 
 	with open('output.json', 'w') as outfile:
 		json.dump(out, outfile)
+
+	if os.path.exists("temp.jpg"):
+  		os.remove("temp.jpg")
 
 if __name__ == '__main__':
 	main()
