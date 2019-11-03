@@ -26,7 +26,9 @@
 							<div class="inner">
 								<h1>Text Analysis</h1>
 								<h3>There is a <b>{{posOfAI[0]}}</b> of the text on your website being AI generated.</h3>
-								<h3><i>It is very unlikely that a neural network could have generated <b>{{posOfAI[1]*100}}%</b> of the words in this article.</i></h3>
+								{% if posOfAI[0] != 'high likelihood' %}
+									<h3><i>It is very unlikely that a neural network could have generated <b>{{posOfAI[1]*100}}%</b> of the words in this article.</i></h3>
+								{% endif %}
 							</div>
 						</div>
 						{% if num_images != 0 %}
