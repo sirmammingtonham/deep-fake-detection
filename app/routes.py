@@ -60,19 +60,20 @@ def check_if_fake():
                 raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
                 result_percentage = get_generated_analysis(raw_text, gpt)
                 if result_percentage >= 0.3:
-                    text_preds.append('very low')
+                    text_preds.append('very low likelihood')
                 if result_percentage >= 0.1:
-                    text_preds.append('low')
+                    text_preds.append('low likelihood')
                 elif result_percentage >= 0.09:
-                    text_preds.append('medium')
+                    text_preds.append('reasonable chance')
                 else:
-                    text_preds.append('high')
+                    text_preds.append('high likelihood')
                 text_preds.append(result_percentage)
 
             if scraped[1]:
                 print('found images, running detection')
                 for image in scraped[1]:
                     image_preds.append((detect_from_image(image, model_full, cuda=cuda), image))
+                fakes = [i for i in image_preds if i[0] == 1]
 
 
             if scraped[2]:
@@ -116,7 +117,7 @@ def check_if_fake():
             flash('ERROR! Something went wrong. Please try again.')
             return redirect(url_for('index'))
 
-        return render_template('results.html', posOfAI = text_preds, imageDetection = image_preds)
+        return render_template('results.html', posOfAI = text_preds, num_images=len(image_preds), fakes=fakes)
 
     except:
         flash('ERROR! Something went wrong. Please try again.')
