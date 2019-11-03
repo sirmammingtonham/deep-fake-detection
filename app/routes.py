@@ -54,6 +54,7 @@ def check_if_fake():
             url = request.form['get_link']
             text_preds = []
             image_preds = []
+            fakes = []
 
             scraped = get_elements(url)
             if scraped[0]:
