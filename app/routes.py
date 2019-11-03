@@ -17,10 +17,10 @@ from .scraper import *
 from .text_detection import *
 
 
-UPLOAD_FOLDER = '../classification/data_dir/uploads'
+UPLOAD_FOLDER = './classification/data_dir/uploads'
 ALLOWED_EXTENSIONS = set(['html', '/'])
-MODEL_PATH = '../classification/weights/full/xception/full_c23.p'
-OUTPUT_PATH = '../classification/data_dir/results'
+MODEL_PATH = './classification/weights/full/xception/full_c23.p'
+OUTPUT_PATH = './classification/data_dir/results'
 
 # app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -28,7 +28,7 @@ OUTPUT_PATH = '../classification/data_dir/results'
 
 cuda = False
 
-base_weights_path = '../classification/weights/face_detection/xception'
+base_weights_path = 'classification/weights/face_detection/xception'
 model_full_path = f'{base_weights_path}/all_raw.p'
 model_77_path = f'{base_weights_path}/all_c23.p'
 model_60_path = f'{base_weights_path}/all_c40.p'
@@ -68,7 +68,7 @@ def check_if_fake():
                     # elif predicted_class == '0.77':
                     #     image_preds.append(detect_from_image(image, model_path=model_77, cuda=cuda))
                     # elif predicted_class == 'original':
-                    image_preds.append(detect_from_image(image, model_path=model_full, cuda=cuda))
+                    image_preds.append([detect_from_image(image, model_full, cuda=cuda), image])
                     # else:
                     #     image_preds.append(None)
 
@@ -114,7 +114,7 @@ def check_if_fake():
             flash('ERROR! Something went wrong. Please try again.')
             return redirect(url_for('index'))
 
-        return render_template('results.html')
+        return render_template('results.html', posOfAI = result_percentage, imageDetection = image_preds)
 
     except:
         flash('ERROR! Something went wrong. Please try again.')
