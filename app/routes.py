@@ -12,8 +12,8 @@ import torch
 import os
 from flask import Flask, flash, request, redirect, url_for, render_template
 
-from scraper import *
-from text_detection import *
+from .scraper import *
+from .text_detection import *
 
 
 UPLOAD_FOLDER = '../classification/data_dir/uploads'
