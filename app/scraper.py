@@ -80,4 +80,4 @@ def get_elements(page_link):
 
 	print (len(clean_images), "images found.")
 
-	return [clean_paragraphs, clean_images]
+	return [clean_paragraphs, clean_images, None]
