@@ -114,7 +114,7 @@ def check_if_fake():
             flash('ERROR! Something went wrong. Please try again.')
             return redirect(url_for('index'))
 
-        return render_template('results.html')
+        return render_template('results.html', posOfAI = result_percentage)
 
     except:
         flash('ERROR! Something went wrong. Please try again.')
