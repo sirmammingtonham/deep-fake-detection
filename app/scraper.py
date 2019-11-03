@@ -47,6 +47,9 @@ def get_elements(page_link):
 			viable = False 
 
 		if viable:
+			opener = urllib.request.build_opener()
+			opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+			urllib.request.install_opener(opener)
 			urllib.request.urlretrieve(url, "temp.jpg")
 
 			# Get user supplied values
