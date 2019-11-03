@@ -4,11 +4,11 @@ sys.path.append('./classification')
 sys.path.append('..')
 
 from app import app
-from classification.detect_from_video import test_full_image_network
-from classification.network import models
+# from classification.detect_from_video import test_full_image_network
+# from classification.network import models
 import torch
 # from app.download_yt import download_video
-from compression_detection import compression_detection
+# from compression_detection import compression_detection
 import os
 from flask import Flask, flash, request, redirect, url_for, render_template
 
@@ -25,25 +25,25 @@ OUTPUT_PATH = '../classification/data_dir/results'
 
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-cuda = False
+# cuda = False
 
-base_weights_path = 'classification/weights/face_detection/xception'
-model_full_path = f'{base_weights_path}/all_raw.p'
-model_77_path = f'{base_weights_path}/all_c23.p'
-model_60_path = f'{base_weights_path}/all_c40.p'
+# base_weights_path = 'classification/weights/face_detection/xception'
+# model_full_path = f'{base_weights_path}/all_raw.p'
+# model_77_path = f'{base_weights_path}/all_c23.p'
+# model_60_path = f'{base_weights_path}/all_c40.p'
 
-model_full = torch.load(model_full_path, map_location=lambda storage, loc: storage)
-model_77 = torch.load(model_77_path, map_location=lambda storage, loc: storage)
-model_60 = torch.load(model_60_path, map_location=lambda storage, loc: storage)
-gpt = LM()
+# model_full = torch.load(model_full_path, map_location=lambda storage, loc: storage)
+# model_77 = torch.load(model_77_path, map_location=lambda storage, loc: storage)
+# model_60 = torch.load(model_60_path, map_location=lambda storage, loc: storage)
+# gpt = LM()
 
-dbio = DatabaseIO()
+# dbio = DatabaseIO()
 
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# def allowed_file(filename):
+#     return '.' in filename and \
+#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
@@ -62,6 +62,8 @@ def check_if_fake():
         if scraped[0]:
             raw_text = ''.join(scraped[0]).encode('ascii', 'replace').decode()
             result_percentage = get_generated_analysis(raw_text, gpt)
+
+        return render_template('results.html')
 
         # if scraped[1]:
 
@@ -90,12 +92,12 @@ def check_if_fake():
 
         # os.remove(filepath)
 
-        if fake_prediction == 1:
-            return render_template('fake.hmtl')
-        elif fake_prediction == 0:
-            return render_template('real.html')
-        else:
-            return render_template('error.html')
+    #     if fake_prediction == 1:
+    #         return render_template('fake.hmtl')
+    #     elif fake_prediction == 0:
+    #         return render_template('real.html')
+    #     else:
+    #         return render_template('error.html')
 
-    else:
-        return render_template('error.html')
+    # else:
+    #     return render_template('error.html')
