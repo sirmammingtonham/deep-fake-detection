@@ -59,6 +59,7 @@ def check_if_fake():
                 result_percentage = get_generated_analysis(raw_text, gpt)
 
             if scraped[1]:
+                print('found images, running detection')
                 for image in scraped[1]:
                     predicted_class = compression_detection.classify_video(image)
                     if predicted_class == '0.6':
@@ -72,6 +73,7 @@ def check_if_fake():
 
 
             if scraped[2]:
+                print('found videos, running detection')
                 predicted_class = compression_detection.classify_video(scraped[2])
 
                 if predicted_class == '0.6':
@@ -86,25 +88,25 @@ def check_if_fake():
                 else:
                     fake_prediction = None
 
-            print(f'fake_prediction: {fake_prediction}')
-            # if fake_prediction is not None:
-            #     history = history.append({'hash': hash, 'link': youtube_url, 'filename': upload_fname,
-            #                               'fake': fake_prediction}, ignore_index=True)
-            #     dbio.write_history(history)
+                print(f'fake_prediction: {fake_prediction}')
+                # if fake_prediction is not None:
+                #     history = history.append({'hash': hash, 'link': youtube_url, 'filename': upload_fname,
+                #                               'fake': fake_prediction}, ignore_index=True)
+                #     dbio.write_history(history)
 
-            # os.remove(filepath)
+                # os.remove(filepath)
 
-            if fake_prediction == 1:
-                a = False
-                print(a)
-                # return render_template('fake.hmtl')
-            elif fake_prediction == 0:
-                a = True
-                print(a)
-                # return render_template('real.html')
-            else:
-                return render_template('error.html')
-                # return render_template('error.html')
+                if fake_prediction == 1:
+                    a = False
+                    print(a)
+                    # return render_template('fake.hmtl')
+                elif fake_prediction == 0:
+                    a = True
+                    print(a)
+                    # return render_template('real.html')
+                else:
+                    return render_template('error.html')
+                    # return render_template('error.html')
 
         else:
             return render_template('error.html')
