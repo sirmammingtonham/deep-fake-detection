@@ -63,7 +63,7 @@ def check_if_fake():
                     text_preds.append('very low')
                 if result_percentage >= 0.1:
                     text_preds.append('low')
-                elif result_percentage >= 0.07:
+                elif result_percentage >= 0.09:
                     text_preds.append('medium')
                 else:
                     text_preds.append('high')
