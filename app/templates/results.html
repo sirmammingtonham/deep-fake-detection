@@ -29,7 +29,7 @@
 								<h3><i>It is very unlikely that a neural network could have generated <b>{{posOfAI[1]*100}}%</b> of the words in this article.</i></h3>
 								<h3></h3>
 								{% if num_images != 0 %}
-								<h3>Out of the {{num_images}} images we scanned, we found {{fakes.count()}} possible deep fakes. Below is a list of ai generated images we found:</h3>
+								<h3>Out of the {{num_images}} images we scanned, we found {{fakes|length}} possible deep fakes. Below is a list of ai generated images we found:</h3>
 								<ul>
 									{% for item in fakes %}
 									<li>{{item[1]}}</li>
