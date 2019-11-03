@@ -7,8 +7,8 @@ import requests
 import json
 
 def main():
-	# page_link = 'https://www.wired.com/story/ai-deepfakes-cant-save-us-duped/'
-	page_link = 'https://www.engadget.com/2019/10/11/deepfake-celebrity-impresonations/'
+	page_link = 'https://www.wired.com/story/ai-deepfakes-cant-save-us-duped/'
+	# page_link = 'https://www.engadget.com/2019/10/11/deepfake-celebrity-impresonations/'
 
 	# implement try catch
 
