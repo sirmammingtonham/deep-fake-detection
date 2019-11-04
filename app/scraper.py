@@ -52,18 +52,14 @@ def get_elements(page_link):
 			urllib.request.install_opener(opener)
 			urllib.request.urlretrieve(url, "temp.jpg")
 
-			# Get user supplied values
 			imagePath = "temp.jpg"
 			cascPath = "/home/ethanj217/deep-fake-detection/app/haarcascade_frontalface_default.xml"
 
-			# Create the haar cascade
 			faceCascade = cv2.CascadeClassifier(cascPath)
 
-			# Read the image
 			image = cv2.imread(imagePath)
 			gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-			# Detect faces in the image
 			faces = faceCascade.detectMultiScale(
 			    gray,
 			    scaleFactor=1.1,
@@ -71,7 +67,7 @@ def get_elements(page_link):
 			    minSize=(30, 30)
 			)
 
-			print("Found {0} faces!".format(len(faces)))
+			print("found {0} faces".format(len(faces)))
 
 			if len(faces) > 0:
 				clean_images.append(url)
