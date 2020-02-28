@@ -17,7 +17,7 @@
 
 🗿  [https://github.com/sirmammingtonham/github-link](https://github.com/sirmammingtonham/)
 
-💽  [https://github.com/julianlioanag/github-link](https://github.com/julianlioanag/)
+💽  [https://github.com/julianlioanag/github-link](https://github.com/jlioanag/)
 
 👙  [https://github.com/Vincentqchen/github-link](https://github.com/Vincentqchen/)
 
