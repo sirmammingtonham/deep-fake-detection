@@ -11,7 +11,7 @@ Click==7.0
 clickclick==1.2.2
 cmake==3.12.0
 connexion==2.4.0
-cryptography==2.8
+cryptography==3.2
 cycler==0.10.0
 dlib==19.15.0
 docutils==0.15.2
