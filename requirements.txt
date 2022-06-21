@@ -40,7 +40,7 @@ MarkupSafe==1.1.1
 matplotlib==3.1.1
 more-itertools==7.2.0
 munch==2.3.2
-numpy==1.16.2
+numpy==1.22.0
 nvidia-ml-py3==7.352.0
 olefile==0.46
 openapi-spec-validator==0.2.8
